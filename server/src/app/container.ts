@@ -1,4 +1,4 @@
-import { githubModule } from "@modules/github/router";
+import { githubRoutes } from "@modules/github/http/github.routes";
 import { createLogger } from "@shared/logger/logger";
 
 export function buildApp() {
@@ -6,6 +6,6 @@ export function buildApp() {
 
   return {
     logger,
-    modules: [githubModule]
+    modules: [githubRoutes]
   };
 }
