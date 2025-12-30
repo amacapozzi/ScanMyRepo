@@ -22,7 +22,7 @@ export function createServer() {
   const { PORT } = env();
   const { logger, modules } = buildApp();
 
-  const app = new Elysia().onError(({ code, error, set }) => {
+  const app = new Elysia({ prefix: "/api" }).onError(({ code, error, set }) => {
     set.status = code === "NOT_FOUND" ? 404 : 500;
     return { ok: false, code, message: getErrorMessage(error) };
   });
