@@ -49,6 +49,26 @@ export class GithubService {
     return all;
   }
 
+  async getBlob(owner: string, repo: string, sha: string) {
+    try {
+      const blob = await this.http.get<{
+        sha: string;
+        size: number;
+        encoding: "base64";
+        content: string;
+      }>(
+        `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/git/blobs/${encodeURIComponent(sha)}`
+      );
+
+      return blob;
+    } catch {
+      throw new GithubError(
+        `Failed to fetch blob ${sha} (${owner}/${repo})`,
+        "GITHUB_BAD_RESPONSE"
+      );
+    }
+  }
+
   async getRepoTree(owner: string, repo: string, ref?: string): Promise<GithubRepoTree> {
     const repoInfo = await this.http.get<{ default_branch: string }>(
       `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`
@@ -137,4 +157,9 @@ function isExcluded(path: string, excludePrefixes: Set<string>): boolean {
     if (norm.startsWith(pre)) return true;
   }
   return false;
+}
+
+function decodeBase64ToUtf8(b64: string): string {
+  const cleaned = b64.replace(/\n/g, "");
+  return Buffer.from(cleaned, "base64").toString("utf8");
 }

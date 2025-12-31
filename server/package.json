@@ -10,7 +10,8 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "elysia": "latest"
+    "elysia": "latest",
+    "groq-sdk": "^0.37.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",

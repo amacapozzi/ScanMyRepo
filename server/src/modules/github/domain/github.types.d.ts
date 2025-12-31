@@ -53,3 +53,10 @@ export type GithubServiceOptions = {
   userAgent?: string;
   timeoutMs?: number;
 };
+
+export type GithubBlob = {
+  sha: string;
+  size: number;
+  encoding: "base64";
+  content: string;
+};
