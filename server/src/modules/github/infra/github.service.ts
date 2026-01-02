@@ -158,8 +158,3 @@ function isExcluded(path: string, excludePrefixes: Set<string>): boolean {
   }
   return false;
 }
-
-function decodeBase64ToUtf8(b64: string): string {
-  const cleaned = b64.replace(/\n/g, "");
-  return Buffer.from(cleaned, "base64").toString("utf8");
-}
